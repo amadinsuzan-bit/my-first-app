@@ -1,0 +1,94 @@
+= Codename One Project
+
+This is a multi-module maven project for building a Codename One application. Codename One applications written in Java and/or Kotlin, and are built as native apps and can be built and deployed to iOS, Android, Mac, Windows, Linux, and also to the Web.
+
+== Getting Started
+
+This starter requires a *JDK 17 or newer*; JDK 25 is recommended. JDK 8 and 11 cannot compile it.
+Install a JDK on your computer, select it as the IDE project SDK and Maven runner JDK,
+and set `JAVA_HOME` to that JDK for terminal builds. The runtime bundled with an IDE
+is not necessarily a project JDK or the Java installation used by your terminal.
+
+Extract the entire ZIP before opening its root folder (the one containing `pom.xml`)
+as a Maven project. Use a terminal in that folder so errors remain visible; do not
+double-click the batch files or run them from inside the ZIP.
+
+.Windows PowerShell or Command Prompt
+----
+.\mvnw.cmd -v
+.\build.bat javascript
+----
+
+.macOS or Linux
+----
+./mvnw -v
+./build.sh javascript
+----
+
+The first command must report Java 17 or newer. If `JAVA_HOME` is invalid, correct it
+and open a new terminal. If Maven downloads fail, check your connection or your
+organization's Maven proxy settings in `~/.m2/settings.xml`, then retry the same command.
+The first build downloads Maven and dependencies and can take several minutes.
+
+Complete browser login when prompted, using the printed URL if the browser does not
+open. Keep the terminal running until submission finishes, then check the build in
+https://cloud.codenameone.com[BuildCloud]. Signing in on the website does not by itself
+sign the local build client in.
+
+To build the selected native desktop target, replace `javascript` with
+`windows_device` or `linux_device`. These are cloud builds; no local Windows or Linux
+compiler is required. `build` without a target makes a *local JAR*, and `run` starts
+the *local simulator*. Neither submits a cloud build or completes the first cloud build step.
+
+== Eclipse Users
+
+IMPORTANT: If you use Eclipse as your IDE, **read this first**
+
+The _tools/eclipse_ directory contains eclipse ".launch" files that will add common Maven goals as menu items inside Eclipse.
+
+After the Maven project import, choose *File > Import > Run/Debug > Launch Configurations*,
+select `tools/eclipse`, and import the launch files. Then open *Run > Run Configurations*.
+
+=== Additional Steps for CodeRAD projects
+
+CodeRAD includes an annotation processor that needs to be activated. There are a few additional steps required to enable this in Eclipse.
+
+. Add `org.eclipse.m2e.apt.mode=jdt_apt` to the `./common/.settings/org.eclipse.m2e.apt.prefs`
+. Add `target/generated-sources/rad-views` to the .classpath.
+
+See https://github.com/codenameone/CodenameOne/issues/3724[this issue] for more details.
+
+== NetBeans Users
+
+This project is a multi-module Maven project that was generated from a Maven archetype.
+
+== IntelliJ Users
+
+The project should work in IntelliJ out of the box.  No need to copy any files.
+
+== Signing
+
+Use the Certificate Wizard to configure Apple signing assets, Android keystores, and desktop signing settings:
+
+----
+mvn cn1:certificatewizard
+----
+
+Generated IDE projects include a Certificate Wizard action under their tools/favorites area.
+
+== Build progress reporting
+
+This starter tells Codename One when a build starts and how it ended -- from `build.sh` and
+`build.bat`, and from Maven when your IDE runs the build -- so we can see where first builds
+get stuck. It sends only this starter's package id, the build target, the OS family, the Java
+version, the exit code, a one-word failure reason, the duration and which tool ran the build
+(IntelliJ, Eclipse, NetBeans, VS Code or the command line). Never your code, paths, user name
+or build output.
+
+To opt out, set `CN1_TELEMETRY` to `0` in the environment the build runs in
+(`export CN1_TELEMETRY=0` on macOS/Linux, `$Env:CN1_TELEMETRY = "0"` in PowerShell), or delete
+the `cn1.telemetry.project` and `cn1.telemetry.events` entries from `pom.xml`.
+
+== Help and Support
+
+See the https://www.codenameone.com[Codename One Web Site].
